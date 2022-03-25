@@ -14,6 +14,10 @@ lerna-debug.log*
 # Certs
 /secrets
 
+# Environment Files
+.env.dev
+.env.test
+
 # OS
 .DS_Store
 

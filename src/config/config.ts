@@ -2,8 +2,9 @@ export const config = {
   development: {
     username: process.env.DATABASE_USER,
     password: process.env.DATABASE_PASSWORD,
-    database: 'blog',
+    database: process.env.DATABASE_SCHEMA,
     host: process.env.DATABASE_HOST,
+    port: process.env.DATABASE_PORT,
     dialect: 'mysql',
     timezone: '+09:00',
     pool: {
