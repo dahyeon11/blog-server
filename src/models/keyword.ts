@@ -6,6 +6,8 @@ import type { article_has_keyword, article_has_keywordId } from './article_has_k
 export interface keywordAttributes {
   id: number;
   name: string;
+  createdAt?: Date;
+  updatedAt?: Date;
 }
 
 export type keywordPk = "id";
@@ -16,8 +18,8 @@ export type keywordCreationAttributes = Optional<keywordAttributes, keywordOptio
 export class keyword extends Model<keywordAttributes, keywordCreationAttributes> implements keywordAttributes {
   id!: number;
   name!: string;
-  createdAt!: Date;
-  updatedAt!: Date;
+  createdAt?: Date;
+  updatedAt?: Date;
 
   // keyword belongsToMany article via keyword_id and article_id
   article_id_article_article_has_keywords!: article[];

@@ -16,8 +16,8 @@ export interface articleAttributes {
   content: string;
   thumbnail_image?: string;
   image?: string;
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt?: Date;
+  updatedAt?: Date;
 }
 
 export type articlePk = "id";
@@ -33,8 +33,8 @@ export class article extends Model<articleAttributes, articleCreationAttributes>
   content!: string;
   thumbnail_image?: string;
   image?: string;
-  createdAt!: Date;
-  updatedAt!: Date;
+  createdAt?: Date;
+  updatedAt?: Date;
 
   // article hasMany article_has_comment via article_id
   article_has_comments!: article_has_comment[];
