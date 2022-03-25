@@ -7,7 +7,7 @@ import {
   OneToMany,
   PrimaryGeneratedColumn,
 } from "typeorm";
-import { Article } from "./Article";
+import { Article } from "./Article.entity";
 
 @Index("mother_category_id_idx", ["motherCategory"], {})
 @Entity("category", { schema: "blog" })

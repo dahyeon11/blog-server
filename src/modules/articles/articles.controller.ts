@@ -2,6 +2,7 @@ import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/commo
 import { ArticlesService } from './articles.service';
 import { CreateArticleDto } from './dto/create-article.dto';
 import { UpdateArticleDto } from './dto/update-article.dto';
+import { Article } from '../../entities/Article.entity'
 
 @Controller('articles')
 export class ArticlesController {
@@ -13,8 +14,8 @@ export class ArticlesController {
   }
 
   @Get()
-  findAll() {
-    return this.articlesService.findAll();
+  getArticles() {
+    return this.articlesService.getArticles()
   }
 
   @Get(':id')

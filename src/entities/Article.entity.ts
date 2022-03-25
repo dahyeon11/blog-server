@@ -9,11 +9,11 @@ import {
   OneToMany,
   PrimaryGeneratedColumn,
 } from "typeorm";
-import { Category } from "./Category";
-import { User } from "./User";
-import { Comment } from "./Comment";
-import { Keyword } from "./Keyword";
-import { Visitor } from "./Visitor";
+import { Category } from "./Category.entity";
+import { User } from "./User.entity";
+import { Comment } from "./Comment.entity";
+import { Keyword } from "./Keyword.entity";
+import { Visitor } from "./Visitor.entity";
 
 @Index("article_user_id_idx", ["userId"], {})
 @Index("article_category_id_idx", ["categoryId"], {})

@@ -6,7 +6,7 @@ import {
   ManyToOne,
   PrimaryGeneratedColumn,
 } from "typeorm";
-import { Article } from "./Article";
+import { Article } from "./Article.entity";
 
 @Index("visitor_article_id_idx", ["articleId"], {})
 @Entity("visitor", { schema: "blog" })

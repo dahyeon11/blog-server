@@ -1,5 +1,5 @@
 import { Column, Entity, ManyToMany } from "typeorm";
-import { Article } from "./Article";
+import { Article } from "./Article.entity";
 
 @Entity("keyword", { schema: "blog" })
 export class Keyword {

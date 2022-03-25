@@ -1,6 +1,6 @@
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
-import { Article } from "./Article";
-import { Token } from "./Token";
+import { Article } from "./Article.entity";
+import { Token } from "./Token.entity";
 
 @Entity("user", { schema: "blog" })
 export class User {
