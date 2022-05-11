@@ -11,6 +11,7 @@ async function bootstrap() {
 			'https://test.dahyeon.us',
       'https://api.dahyeon.us',
       'https://dahyeon.us',
+	  'https://test.dahyeon.us:3000',
 		],
 		methods: 'GET,OPTIONS,PUT,PATCH,POST,DELETE',
 		allowedHeaders: ['Content-Type', 'Authorization'],

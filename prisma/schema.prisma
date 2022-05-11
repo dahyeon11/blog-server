@@ -1,0 +1,121 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model article {
+  id                  Int                   @id @default(autoincrement())
+  user_id             Int
+  category_id         Int
+  title               String                @db.VarChar(300)
+  content             String                @db.LongText
+  thumbnail_image     String?               @db.VarChar(300)
+  image               String?               @db.VarChar(500)
+  createdAt           DateTime?             @default(now()) @db.DateTime(0)
+  updatedAt           DateTime?             @default(now()) @db.DateTime(0)
+  category            category              @relation(fields: [category_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "article_category_id")
+  user                user                  @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "article_user_id")
+  article_has_comment article_has_comment[]
+  article_has_keyword article_has_keyword[]
+  visitor             visitor[]
+
+  @@index([category_id])
+  @@index([user_id])
+}
+
+model article_has_comment {
+  article_id Int
+  comment_id Int
+  article    article @relation(fields: [article_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "article_has_comment_article_id")
+  comment    comment @relation(fields: [comment_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "article_has_comment_comment_id")
+
+  @@id([article_id, comment_id])
+  @@index([article_id])
+  @@index([comment_id])
+}
+
+model article_has_keyword {
+  article_id Int
+  keyword_id Int
+  article    article @relation(fields: [article_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "article_has_keyword_article_id")
+  keyword    keyword @relation(fields: [keyword_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "article_has_keyword_keyword_id")
+
+  @@id([keyword_id, article_id])
+  @@index([article_id])
+  @@index([keyword_id])
+}
+
+model category {
+  id              Int        @id @default(autoincrement())
+  name            String     @db.VarChar(45)
+  description     String     @db.VarChar(45)
+  depth           Int        @db.TinyInt
+  mother_category Int
+  category        category   @relation("categoryTocategory_mother_category", fields: [mother_category], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "mother_category_id")
+  article         article[]
+  other_category  category[] @relation("categoryTocategory_mother_category")
+
+  @@index([mother_category], map: "mother_category_id_idx")
+}
+
+model comment {
+  id                  Int                   @id @default(autoincrement())
+  user_id             Int?
+  guest_name          String?               @db.VarChar(300)
+  guest_password      String?               @db.VarChar(300)
+  content             String?               @db.VarChar(500)
+  image               String?               @db.VarChar(45)
+  createdAt           DateTime?             @default(now()) @db.DateTime(0)
+  updateAt            DateTime?             @default(now()) @db.DateTime(0)
+  article_has_comment article_has_comment[]
+}
+
+model keyword {
+  id                  Int                   @id
+  name                String                @db.VarChar(45)
+  createdAt           DateTime?             @default(now()) @db.DateTime(0)
+  updatedAt           DateTime?             @default(now()) @db.DateTime(0)
+  article_has_keyword article_has_keyword[]
+}
+
+model token {
+  id        Int       @id @default(autoincrement())
+  user_id   Int
+  type      Int?      @db.TinyInt
+  value     String?   @db.VarChar(300)
+  exp       DateTime? @db.DateTime(0)
+  createdAt DateTime? @db.DateTime(0)
+  updatedAt DateTime? @db.DateTime(0)
+  user      user      @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "token_user_id")
+
+  @@index([user_id])
+}
+
+model user {
+  id            Int       @id @default(autoincrement())
+  name          String?   @db.VarChar(45)
+  email         String?   @db.VarChar(45)
+  password      String?   @db.VarChar(45)
+  nickname      String?   @db.VarChar(45)
+  profile_image String?   @db.VarChar(300)
+  role          Int?      @db.TinyInt
+  createdAt     DateTime? @default(now()) @db.DateTime(0)
+  updatedAt     DateTime? @default(now()) @db.DateTime(0)
+  article       article[]
+  token         token[]
+}
+
+model visitor {
+  id            Int       @id @default(autoincrement())
+  article_id    Int?
+  timestamp     DateTime? @db.DateTime(0)
+  reference_url String?   @db.VarChar(45)
+  ip            String?   @db.VarChar(45)
+  article       article?  @relation(fields: [article_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "visitor_article_id")
+
+  @@index([article_id])
+}

@@ -1,15 +1,13 @@
 import { Injectable } from '@nestjs/common';
 import { CreateArticleDto } from './dto/create-article.dto';
 import { UpdateArticleDto } from './dto/update-article.dto';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
-import { Article } from '../../entities/Article.entity'
+import { PrismaService } from '../prisma/prisma.service';
+import { article, Prisma } from '@prisma/client';
 
 @Injectable()
 export class ArticlesService {
   constructor(
-    @InjectRepository(Article)
-    private articlesRepository: Repository<Article>,
+    private prisma: PrismaService
   ) {}
 
   create(createArticleDto: CreateArticleDto) {
@@ -20,12 +18,8 @@ export class ArticlesService {
     return `This action returns all articles`;
   }
 
-  async getArticles(): Promise<Article> {
-    const article = await this.articlesRepository.findOne({
-      where: {
-        id: 1
-      }
-    })
+  async getArticles(): Promise<article[]> {
+    const article = await this.prisma.article.findMany()
     return article
   }
 

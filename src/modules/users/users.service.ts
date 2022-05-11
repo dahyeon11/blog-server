@@ -1,16 +1,14 @@
 import { Injectable } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
-import { User } from '../../entities/User.entity'
 import { join } from 'path';
+import { PrismaService } from '../prisma/prisma.service';
+import { article, Prisma } from '@prisma/client';
 
 @Injectable()
 export class UsersService {
   constructor(
-    @InjectRepository(User)
-    private usersRepository: Repository<User>,
+    private prisma: PrismaService
   ) {}
 
   create(createUserDto: CreateUserDto) {
@@ -23,12 +21,8 @@ export class UsersService {
     return `This action returns all users`;
   }
 
-  async findOne(id: number) {
-    const user = this.usersRepository.findOne({
-      where: {
-        id: 1
-      }
-    })
+  async findOne(id: number): Promise<article[]>{
+    const user = await this.prisma.article.findMany()
     return user;
   }
 
