@@ -15,6 +15,7 @@ lerna-debug.log*
 /secrets
 
 # Environment Files
+.env
 .env.dev
 .env.test
 
