@@ -12,14 +12,9 @@ export class ArticlesController {
     return this.articlesService.create(createArticleDto);
   }
 
-  @Get()
-  getArticles() {
-    return this.articlesService.getArticles()
-  }
-
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.articlesService.findOne(+id);
+  @Get('/:id?')
+  getArticles(@Param('id') id?: string) {
+    return this.articlesService.getArticles(+id)
   }
 
   @Patch(':id')
