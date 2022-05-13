@@ -18,13 +18,20 @@ export class ArticlesService {
     return `This action returns all articles`;
   }
 
-  async getArticles(id?: number): Promise<article[]> {
-    let options
+  async getArticles(id?: number, keyword?: string): Promise<article[]> {
+    let options = {};
     if(id) {
-      options = {
+      Object.assign(options, {
         id: id
-      }
-    }
+      });
+    };
+    if(keyword) {
+      Object.assign(options, {
+        title: {
+          contains: keyword
+        }
+      });
+    };
     const article = await this.prisma.article.findMany({
       orderBy: {
         createdAt: 'desc',

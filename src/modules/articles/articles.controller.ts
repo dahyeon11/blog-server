@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
 import { ArticlesService } from './articles.service';
 import { CreateArticleDto } from './dto/create-article.dto';
 import { UpdateArticleDto } from './dto/update-article.dto';
@@ -13,8 +13,8 @@ export class ArticlesController {
   }
 
   @Get('/:id?')
-  getArticles(@Param('id') id?: string) {
-    return this.articlesService.getArticles(+id)
+  getArticles(@Param('id') id?: string, @Query('keyword') keyword?: string) {
+    return this.articlesService.getArticles(+id, keyword)
   }
 
   @Patch(':id')
