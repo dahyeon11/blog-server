@@ -3,6 +3,7 @@ import { CreateArticleDto } from './dto/create-article.dto';
 import { UpdateArticleDto } from './dto/update-article.dto';
 import { PrismaService } from '../prisma/prisma.service';
 import { article, Prisma } from '@prisma/client';
+import { Article } from './entities/article.entity';
 
 @Injectable()
 export class ArticlesService {
@@ -10,15 +11,18 @@ export class ArticlesService {
     private prisma: PrismaService
   ) {}
 
-  create(createArticleDto: CreateArticleDto) {
-    return 'This action adds a new article';
+  async createArticles(createArticleDto: CreateArticleDto): Promise<any> {
+    const createdArticles = await this.prisma.article.create({
+      data: createArticleDto,
+    })
+    return createdArticles
   }
 
   findAll() {
     return `This action returns all articles`;
   }
 
-  async getArticles(id?: number, keyword?: string): Promise<article[]> {
+  async getArticles(id?: number, keyword?: string): Promise<Article[]> {
     let options = {};
     if(id) {
       Object.assign(options, {

@@ -1,5 +1,5 @@
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
   previewFeatures = ["fullTextSearch", "fullTextIndex"]
 }
 
@@ -14,6 +14,7 @@ model article {
   category_id         Int
   title               String                @db.VarChar(300)
   content             String                @db.LongText
+  raw_contentstate    Json
   thumbnail_image     String?               @db.VarChar(300)
   image               String?               @db.VarChar(500)
   createdAt           DateTime?             @default(now()) @db.DateTime(0)

@@ -21,7 +21,7 @@ export function setupSwagger(app: INestApplication): void {
     .setDescription('Api 문서입니다.')
     .setVersion('1.0.0')
     .addServer('https://test.dahyeon.us', '테스트 서버')
-    .addServer('https://api.dahyeon.us', '상용 서버')
+    .addServer('https://api2.dahyeon.us', 'vultr 서버')
     .build();
 
 
@@ -105,5 +105,5 @@ export function setupSwagger(app: INestApplication): void {
     customSiteTitle: 'Api Docs',
   }
   const document = SwaggerModule.createDocument(app, options);
-  SwaggerModule.setup('api', app, document, customOptions);
+  SwaggerModule.setup('docs', app, document, customOptions);
 }
